@@ -55,12 +55,16 @@ def beat(timer):
     else:
         speaker.freq(int(melody[i] + 0.5)) # PWMの周波数を次のメロディー音の周波数に変更する。整数で渡す必要があるので、+0.5してから小数点以下切り捨て（thanks @naohiro2g）
         speaker.duty_u16(0x8000) # PWMのDutyを50％に戻し、音を出す。Dutyは0～0xFFFFつまり65535までの間の値で設定
-        if melody[i] == D5:
+        if melody[i] == A4 or B4 or C5:
             r_onboard.value(1) # LEDを光らせる
-        elif melofy[i] == E5:
+        elif melody[i] == C5s or D5 or E5:
             y_onboard.value(1)
-        else:
+        elif melody[i] == F5s or F5:
             g_onboard.value(1)
+        elif melody[i] == G5 or A5:
+            b_onboard.value(1)
+        else:
+            w_onboard.value(1)
         
     i += 1 # メロディーを次に進めて終わり
 
