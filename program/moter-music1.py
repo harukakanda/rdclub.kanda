@@ -1,47 +1,36 @@
 from machine import Pin, PWM, Timer
-import utime
 
 # 回路依存の定数 -  回路構成に応じて変更必要
 GPIO_SPEAKER = 18  # スピーカー
-
-#GPIO_RED     = 2  # 各色のLED
-GPIO_YELLOW  = 2
+GPIO_RED     = 2  # 各色のLED
+GPIO_YELLOW  = 3
 GPIO_GREEN   = 4
 GPIO_BLUE    = 5
 GPIO_WHITE   = 6
 
 # GPIOの宣言
 SPEAKER = PWM(Pin(GPIO_SPEAKER, Pin.OUT)) # スピーカー
-#RED     = Pin(GPIO_RED,     Pin.OUT) # LED
+RED     = Pin(GPIO_RED,     Pin.OUT) # LED
 BLUE    = Pin(GPIO_BLUE,    Pin.OUT)
 YELLOW  = Pin(GPIO_YELLOW,  Pin.OUT)
 GREEN   = Pin(GPIO_GREEN,   Pin.OUT)
 WHITE   = Pin(GPIO_WHITE,   Pin.OUT)
-
-led_external = machine.Pin(15, machine.Pin.OUT)
-button = machine.Pin(17,machine.Pin.IN,machine.Pin.PULL_DOWN)
-servo = PWM(Pin(26))
-servo.freq(50)
-angle_0 = int(2.5 / 20 * 65536)
-angle_90 = int(1.5 / 20 * 65536)
-angle_180 = int(0.5 / 20 * 65536)
-
 
 # 使用する音を定義（ピタゴラスイッチは低いラ～高いドまでの音を使う）
 # dict型でキーは音のID、値は音の属性 リスト
 # 属性の内容は周波数、光らせるLED の色
 tone = {
     ""   : [   0.000, 0      ],  # 無音（休符）
-    "A4" : [ 440.000, BLUE   ],  # ラ　A4はラの音で赤LEDを光らせる
+    "A4" : [ 440.000, RED    ],  # ラ　A4はラの音で赤LEDを光らせる
     "B4" : [ 493.883, BLUE   ],  # シ　以下同様
-    "C5" : [ 523.251, YELLOW ],  # ド
+    "C5" : [ 523.251, YELLOW ],　　# ド
     "C5s": [ 554.365, GREEN  ],
     "D5" : [ 587.330, WHITE  ],
-    "D5s": [ 622.254, YELLOW ],
+    "D5s": [ 622.254, RED    ],
     "E5" : [ 659.255, BLUE   ],
     "F5" : [ 698.456, YELLOW ],
     "F5s": [ 739.989, WHITE  ],
-    "G5" : [ 783.991, GREEN  ],
+    "G5" : [ 783.991, RED    ],
     "G5s": [ 839.609, BLUE   ],
     "A5" : [ 880.000, GREEN  ],
     "A5s": [ 932.328, WHITE  ],
@@ -90,6 +79,7 @@ i = 0
 
 # 全部のLEDを消す
 def turn_off_all_led():
+    RED.value(0)
     BLUE.value(0)
     YELLOW.value(0)
     GREEN.value(0)
@@ -121,22 +111,4 @@ def beat(timer):
 # 8分3連符の間隔でコールバックを呼ぶタイマーを作成し、メロディースタート
 tim = Timer()
 tim.init(period=mspb, mode=Timer.PERIODIC, callback=beat)
-
-
-while True:
-    if button.value() == 1:
-        print("ボタンが押された")
-        led_external.on()
-        utime.sleep(0.1)
-        servo.duty_u16(angle_0)
-        utime.sleep(1)
-        servo.duty_u16(angle_90)
-        utime.sleep(1)
-        servo.duty_u16(angle_180)
-        utime.sleep(1)
-        servo.duty_u16(0)
-        
-        
-    else:
-        led_external.off()
 
