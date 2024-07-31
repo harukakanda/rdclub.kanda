@@ -3,17 +3,42 @@ from machine import Pin, PWM, Timer
 # 1要素が8分3連符ひとつ分の音の長さになる。 " "は無音（休符）
 melody = []
 
-print("bpsを入力 = ")
-b = int(input())
+melodyn = {
+    "1": [240, "g5g5f5h5h5g5d5d5j4j4j4j4j4j4j4//g5g5f5h5h5g5d5d5g5g5g5g5f5f5f5//f5f5r5g5g5f5l4l4f5f5d5d5l4l4d5d5k4l4l4f5f5f5d5j4j4j4j4j4j4j4//g5g5f5h5h5g5d5d5j4j4j4j4j4j4j4//g5g5f5h5h5g5d5d5g5g5g5g5f5f5f5//f5f5r5g5g5f5f5l4f5f5d5d5l4l4d5d5k4l4l4f5f5f5d5d5g5g5//g5h5h5k5k5j5j5j5j5j5j5j5j5j5j5//g5h5h5k5k5j5j5f5h5h5h5g5//g5g5//g5h5j5l5l5k5k5j5j5j5d5l5l5k5k5j5j5j5d5g5g5f5f5d5d5g5g5f5f5f5//g5h5h5k5k5j5j5j5j5j5j5j5j5j5//g5h5h5k5k5j5j5f5h5h5h5g5//g5g5//g5h5j5l5l5k5k5j5j5j5d5l5l5d6j5j5j5//g5g5f5f5d5d5f5f5h5h5g5g5d5d5l4l4d5d5d5d5d5d5d5d5d5d5"],
+    "2": [240, "h4h4g4g4h4d4d4d4d4d4d4d4d4d4////h4h4g4g4h4k4k4k4k4k4k4k4k4//o4o4k4k4j4j4h4o4o4o4k4k4j4j4h4h4h4h4j4j4j4j4j4j4j4j4j4j4j4////h4h4g4g4h4d4d4d4d4d4d4d4d4d4////h4h4g4g4h4d5d5d5d5d5d5d5d5//o4//o4//o4k4j4o4o4o4o4o4//j4k4o4k4//k4//k4j4h4k4k4k4k4k4k4k4////f4f4g4g4h4h4j4f4//f4g4g4h4j4h4d5d5d5d5d5d5d5d5d5d5d5////h4j4k4o4d5//k4h4//d5//o4o4j4j4//////////o4//j4g4//o4//k4k4h4h4////////////r4r4h4h4o4o4k4k4d5h4h4h4h4k4o4k4o4k4o4k4h4j4j4j4////h4j4k4o4d5//k4h4//d5//o4o4j4j4//////////o4//j4g4//o4//k4k4h4h4//////f4f4f5f5d5o4k4o4d5d5d5h4h4h4h4h4k4o4k4h4o4k4h4f5d5d5d5d5d5d5d5d5d5////d4d4o4k4j4k4h4h4h4h4h4h4h4h4"],
+    "3": [156, "f5g5//f5g5//j5u5//f5g5//f5g5//f5g5//d6l5//j5k5//f5g5//f5g5//j5u5//f5g5//l4k4//l4d5//r5f5////f5//f5g5//f5g5//j5u5//f5g5//f5g5//f5g5//d6l5//j5k5//f5g5//f5g5//j5u5//f5g5//l4k4k4k4k4k4k4k4k4k4////h5g5//g5u5g5u5j5j5j5f5//l4d5//d5f5r5f5l4l4l4////f5g5//f5g5//j5u5//f5g5//f5g5//f5g5//j5u5//f5g5//f5g5//f5g5//d6l5////j5//////////////////////////f5g5//f5g5//d6l5////j5//"],
+}
 
-print("メロディを入力　= ")
-n = input()
-count = 0
-while count < len(n):
-    word = n[count]
-    t = n[count+1]
-    melody.append(word+t)
-    count += 2
+print("新規のメロディを入力　➔　”A”")
+print("既存のメロディを出力　➔　”B”")
+
+i = input()
+if i == "A":    
+    print("bpsを入力 = ")
+    b = int(input())
+    print("メロディを入力　= ")
+    n = input()
+    count = 0
+    while count < len(n):
+        word = n[count]
+        t = n[count+1]
+        melody.append(word+t)
+        count += 2
+
+else:
+    print("ア・ホール・ニューワールド　➔　”１”")
+    print("さんぽ　➔　”２”")
+    print("ピタゴラスイッチ　➔　”３”")
+    i = input()
+    b = melodyn[i][0]
+    n = melodyn[i][1]
+    count = 0
+    while count < len(n):
+        word = n[count]
+        t = n[count+1]
+        melody.append(word+t)
+        count += 2
+    
 
 # 回路依存の定数 -  回路構成に応じて変更必要
 GPIO_SPEAKER = 18  # スピーカー
@@ -35,7 +60,7 @@ WHITE   = Pin(GPIO_WHITE,   Pin.OUT)
 # dict型でキーは音のID、値は音の属性 リスト
 # 属性の内容は周波数、光らせるLED の色
 tone = {
-    "  ": [   0.000, 0      ],  # 無音（休符）
+    "//": [   0.000, 0      ],  # 無音（休符）
     
     "d4": [ 261.626, RED    ],  # C4
     "r4": [ 277.183, RED    ],  # C4s
@@ -105,7 +130,7 @@ def beat(timer):
         turn_off_all_led() # LEDを消して
         timer.deinit() # タイマーを破棄して終了
 
-    elif melody[i] == "  ": # メロディー音が0、つまり無音（休符）の場合
+    elif melody[i] == "//": # メロディー音が0、つまり無音（休符）の場合
         SPEAKER.duty_u16(0) # PWMのDutyを0とすることで波形は出力されずLOWとなり、音は出ない
         turn_off_all_led() # LEDを消す
 
@@ -121,10 +146,3 @@ def beat(timer):
 # 8分3連符の間隔でコールバックを呼ぶタイマーを作成し、メロディースタート
 tim = Timer()
 tim.init(period=mspb, mode=Timer.PERIODIC, callback=beat)
-
-
-# ア・ホール・ニューワールド 240
-#
-
-# 涙そうそう 74
-# jjk!djjk!d!d!f!d!g!gk!d!f!d!g!gkk!d!fj!h!g!fk
