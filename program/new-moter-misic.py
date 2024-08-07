@@ -166,35 +166,36 @@ melodyn = {
     "3": [ 156, "f5g5//f5g5//j5u5//f5g5//f5g5//f5g5//d6l5//j5k5//f5g5//f5g5//j5u5//f5g5//l4k4//l4d5//r5f5////f5//f5g5//f5g5//j5u5//f5g5//f5g5//f5g5//d6l5//j5k5//f5g5//f5g5//j5u5//f5g5//l4k4k4k4k4k4k4k4k4k4////h5g5//g5u5g5u5j5j5j5f5//l4d5//d5f5r5f5l4l4l4////f5g5//f5g5//j5u5//f5g5//f5g5//f5g5//j5u5//f5g5//f5g5//f5g5//d6l5////j5//////////////////////////f5g5//f5g5//d6l5////j5//"],
     }
 
-print("新規のメロディを入力　➔　”A”")
-print("既存のメロディを出力　➔　”B”")
-
-i = input()
-if i == "A":    
-    print("bpsを入力 = ")
-    b = int(input())
-    print("メロディを入力　= ")
-    n = input()
-    count = 0
-    while count < len(n):
-        word = n[count] + n[count+1]
-        melody.append(word)
-        count += 2
-
-else:
-    print("ア・ホール・ニューワールド　➔　”１”")
-    print("さんぽ　➔　”２”")
-    print("ピタゴラスイッチ　➔　”３”")
+while True:
+    print("新規のメロディを入力　➔　”A”")
+    print("既存のメロディを出力　➔　”B”")
     i = input()
-    b = melodyn[i][0]
-    n = melodyn[i][1]
-    count = 0
-    while count < len(n):
-        word = n[count]
-        t = n[count+1]
-        melody.append(word+t)
-        count += 2
-        
+    if i == "A":    
+        print("bpsを入力 = ")
+        b = int(input())
+        print("メロディを入力　= ")
+        n = input()
+        count = 0
+        while count < len(n):
+            word = n[count] + n[count+1]
+            melody.append(word)
+            count += 2
+        break
+    elif i == "B":
+        print("ア・ホール・ニューワールド　➔　”１”")
+        print("さんぽ　➔　”２”")
+        print("ピタゴラスイッチ　➔　”３”")
+        i = input()
+        b = melodyn[i][0]
+        n = melodyn[i][1]
+        count = 0
+        while count < len(n):
+            word = n[count]
+            t = n[count+1]
+            melody.append(word+t)
+            count += 2
+        break
+    
 for _ in range(15):
     melody.append("//")
 print(melody)
@@ -271,37 +272,33 @@ if CIRCUIT == 1:
             print("ボタン１が押された")
             utime.sleep(0.1)
             servo1.duty_u16(angle_0)
-            utime.sleep(1)
+            utime.sleep(0.5)
             servo1.duty_u16(angle_90)
-            utime.sleep(1)
+            utime.sleep(0.5)
             servo1.duty_u16(angle_180)
-            utime.sleep(1)
+            utime.sleep(0.5)
             servo1.duty_u16(0)        
         elif button2.value() == 1:
             print("ボタン2が押された")
             utime.sleep(0.1)
             servo2.duty_u16(angle_0)
-            utime.sleep(1)
+            utime.sleep(0.5)
             servo2.duty_u16(angle_90)
-            utime.sleep(1)
+            utime.sleep(0.5)
             servo2.duty_u16(angle_180)
-            utime.sleep(1)
+            utime.sleep(0.5)
             servo2.duty_u16(0)        
         elif button3.value() == 1:
             print("ボタン3が押された")
             utime.sleep(0.1)
             servo3.duty_u16(angle_0)
-            utime.sleep(1)
+            utime.sleep(0.5)
             servo3.duty_u16(angle_90)
-            utime.sleep(1)
+            utime.sleep(0.5)
             servo3.duty_u16(angle_180)
-            utime.sleep(1)
+            utime.sleep(0.5)
             servo3.duty_u16(0)
-        else:
-            servo1.duty_u16(0)
-            servo2.duty_u16(0)
-            servo3.duty_u16(0) 
-            
+    
 elif CIRCUIT == 2:
     while True:
         if button.value() == 1:
