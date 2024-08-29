@@ -7,14 +7,14 @@ class tone_thread1( th1.Thread ):
     def __init__( self ): 
         super( tone_thread1, self ).__init__()
     def run( self ):
-        tone1() 
+        tone1()
 
 def tone1(): 
     global n1 
     global vol1 
-    #out1.note_on( n1, vol1 )
+    out1.note_on( n1, vol1 )
     tm1.sleep( 2.0 ) 
-    #out1.note_off( n1, vol1 ) 
+    out1.note_off( n1, vol1 ) 
 
 def btn1( n0 ): 
     global n1 
@@ -91,7 +91,7 @@ def inst1( n1 ):
     textbox1.delete(0, tk1.END) 
     textbox1.insert(0, str(ins0) ) 
     btn_inst1.focus_set() 
-    #out1.set_instrument(ins1, chn1) 
+    out1.set_instrument(ins1, chn1) 
 
 def volu1( n1 ): 
     global vol1 
@@ -264,12 +264,12 @@ oct1 = 0
 chn1 = 0 
 n1 = 60
 pygame.midi.init()
-#out1 = pygame.midi.Output(0)
-#out1.set_instrument(ins1, chn1)
+out1 = pygame.midi.Output(0)
+out1.set_instrument(ins1, chn1)
 textbox1.insert(0, ins1) 
 textbox2.insert(0, vol1) 
 
 root.mainloop()
 
-#out1.close()
+out1.close()
 pygame.midi.quit()
