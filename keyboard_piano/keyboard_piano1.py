@@ -12,9 +12,9 @@ class tone_thread1( th1.Thread ):
 def tone1(): 
     global n1 
     global vol1 
-    out1.note_on( n1, vol1 )
+    #out1.note_on( n1, vol1 )
     tm1.sleep( 2.0 ) 
-    out1.note_off( n1, vol1 ) 
+    #out1.note_off( n1, vol1 ) 
 
 def btn1( n0 ): 
     global n1 
@@ -91,7 +91,7 @@ def inst1( n1 ):
     textbox1.delete(0, tk1.END) 
     textbox1.insert(0, str(ins0) ) 
     btn_inst1.focus_set() 
-    out1.set_instrument(ins1, chn1) 
+    #out1.set_instrument(ins1, chn1) 
 
 def volu1( n1 ): 
     global vol1 
@@ -119,7 +119,7 @@ root.title('midi_piano v0.2')
 root.geometry("910x140")
 root["bg"] = "#202020" 
 
-root.bind("", key1) 
+root.bind("<KeyPress>", key1) 
 
 btn01 = tk1.Button(root, text='', bg='white', command=lambda:btn1(1))
 btn01.place(x=20, y=30, height=100, width=30)
@@ -264,12 +264,12 @@ oct1 = 0
 chn1 = 0 
 n1 = 60
 pygame.midi.init()
-out1 = pygame.midi.Output(0)
-out1.set_instrument(ins1, chn1)
+#out1 = pygame.midi.Output(0)
+#out1.set_instrument(ins1, chn1)
 textbox1.insert(0, ins1) 
 textbox2.insert(0, vol1) 
 
 root.mainloop()
 
-out1.close()
+#out1.close()
 pygame.midi.quit()
