@@ -55,9 +55,11 @@ elif CIRCUIT == 2:
     servo.freq(50)
     
 angle_0 = int(2.5 / 20 * 65536)
+angle_9 = int(2.4 / 20 * 65536)
+angle_45 = int(2.0 / 20 * 65536)
 angle_90 = int(1.5 / 20 * 65536)
+angle_135 = int(1.0 / 20 * 65536)
 angle_180 = int(0.5 / 20 * 65536)
-
 
 # 使用する音を定義（ピタゴラスイッチは低いラ～高いドまでの音を使う）
 # dict型でキーは音のID、値は音の属性 リスト
@@ -271,7 +273,7 @@ if CIRCUIT == 1:
         if button1.value() == 1:
             print("ボタン１が押された")
             utime.sleep(0.1)
-            servo1.duty_u16(angle_0)
+            servo1.duty_u16(angle_9)
             utime.sleep(0.5)
             servo1.duty_u16(angle_90)
             utime.sleep(0.5)
@@ -281,7 +283,7 @@ if CIRCUIT == 1:
         elif button2.value() == 1:
             print("ボタン2が押された")
             utime.sleep(0.1)
-            servo2.duty_u16(angle_0)
+            servo2.duty_u16(angle_9)
             utime.sleep(0.5)
             servo2.duty_u16(angle_90)
             utime.sleep(0.5)
@@ -291,7 +293,7 @@ if CIRCUIT == 1:
         elif button3.value() == 1:
             print("ボタン3が押された")
             utime.sleep(0.1)
-            servo3.duty_u16(angle_0)
+            servo3.duty_u16(angle_9)
             utime.sleep(0.5)
             servo3.duty_u16(angle_90)
             utime.sleep(0.5)
